@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "hlapi": {
+    "host": "127.0.0.1",
+    "port": 27017,
+    "url": "",
+    "database": "",
+    "password": "",
+    "name": "hlapi",
+    "user": "",
+    "connector": "mongodb"
+  }
+}
