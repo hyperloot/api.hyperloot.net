@@ -12,7 +12,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "nickname": {
+      "type": "belongsTo",
+      "model": "Nickname",
+      "foreignKey": "walletId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

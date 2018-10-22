@@ -41,10 +41,10 @@
   },
   "Nickname": {
     "dataSource": "hlapi",
-    "public": false
+    "public": true
   },
   "Wallet": {
     "dataSource": "hlapi",
-    "public": false
+    "public": true
   }
 }

@@ -8,7 +8,13 @@
   },
   "properties": {},
   "validations": [],
-  "relations": {},
+  "relations": {
+    "userNickname": {
+      "type": "hasOne",
+      "model": "Nickname",
+      "foreignKey": "nicknameId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
