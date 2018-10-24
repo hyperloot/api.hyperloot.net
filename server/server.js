@@ -5,6 +5,8 @@ var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
 
+app.set('json spaces', 2); // format json responses for easier viewing
+
 app.start = function() {
   // start the web server
   return app.listen(function() {
