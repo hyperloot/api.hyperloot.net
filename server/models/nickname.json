@@ -21,12 +21,7 @@
     "user": {
       "type": "belongsTo",
       "model": "HyperlootUser",
-      "foreignKey": "nicknameId"
-    },
-    "wallets": {
-      "type": "hasMany",
-      "model": "Wallet",
-      "foreignKey": "walletId"
+      "foreignKey": "userId"
     }
   },
   "acls": [],

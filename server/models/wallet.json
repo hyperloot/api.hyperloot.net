@@ -13,10 +13,10 @@
   },
   "validations": [],
   "relations": {
-    "nickname": {
+    "user": {
       "type": "belongsTo",
-      "model": "Nickname",
-      "foreignKey": "walletId"
+      "model": "HyperlootUser",
+      "foreignKey": "userId"
     }
   },
   "acls": [],

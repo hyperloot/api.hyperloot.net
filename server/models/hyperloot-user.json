@@ -12,9 +12,22 @@
     "userNickname": {
       "type": "hasOne",
       "model": "Nickname",
-      "foreignKey": "nicknameId"
+      "foreignKey": "userId"
+    },
+    "wallets": {
+      "type": "hasMany",
+      "model": "Wallet",
+      "foreignKey": "userId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "canRegisterEmail"
+    }
+  ],
   "methods": {}
 }
