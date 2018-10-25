@@ -39,5 +39,23 @@ module.exports = function(server) {
     })
   });
 
+  router.get('/api/findNicknameByWalletAddress', function (req, res, next) {
+    var walletAddress = req.query['address'];
+    var Wallet = server.models.Wallet;
+
+    Wallet.findWallet(walletAddress, function (err, wallet) {
+      if (err) {
+        res.status(500);
+        res.send({error: err});
+      } else {
+
+
+
+        res.send({result: response});
+      }
+
+    })
+  });
+
   server.use(router);
 };
