@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "10"
 script:
-  - node .
+  - npm run test
 deploy:	
   provider: pages	
   local-dir: build	
