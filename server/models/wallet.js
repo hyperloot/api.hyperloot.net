@@ -4,7 +4,7 @@ module.exports = function(Wallet) {
 
   Wallet.findWallet = function(walletAddress, cb) {
     Wallet.findOne({where: {address: walletAddress}}, function (err, wallet) {
-      cb(err, wallet)
+      cb(err, wallet);
     });
   };
 

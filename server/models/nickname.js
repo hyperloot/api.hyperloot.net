@@ -16,11 +16,11 @@ module.exports = function(Nickname) {
         'path': '/findByName', 'verb': 'get'
       },
       'accepts': [
-        { 'arg': 'nickname', 'type': 'string', 'required': true,
-          'arg': 'page', 'type': 'integer', 'required': false }
+        {'arg': 'nickname', 'type': 'string', 'required': true,
+          'arg': 'page', 'type': 'integer', 'required': false}
       ],
       'returns': [
-        { 'arg': 'nicknames', 'type': 'array', 'root': true }
+        {'arg': 'nicknames', 'type': 'array', 'root': true}
       ]
     });
 
