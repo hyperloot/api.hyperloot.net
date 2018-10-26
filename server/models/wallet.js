@@ -13,10 +13,10 @@ module.exports = function(Wallet) {
       'path': '/findWallet', 'verb': 'get'
     },
     'accepts': [
-      { 'arg': 'walletAddress', 'type': 'string', 'required': true }
+      {'arg': 'walletAddress', 'type': 'string', 'required': true}
     ],
     'returns': [
-      { 'arg': 'wallet', 'type': 'object', 'root': true }
+      {'arg': 'wallet', 'type': 'object', 'root': true}
     ]
   });
 };
