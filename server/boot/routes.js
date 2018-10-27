@@ -34,11 +34,11 @@ module.exports = function(server) {
         var response = [];
         for (var i = 0; i < nicknames.length; i++) {
           var nickname = nicknames[i];
-          response += {
+          response.push({
             nickname: nickname.nickname,
             identifier: nickname.identifier,
             walletAddress: nickname.walletAddress
-          };
+          });
         }
         res.send({result: response});
       }
