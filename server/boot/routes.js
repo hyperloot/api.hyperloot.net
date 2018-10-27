@@ -59,19 +59,17 @@ module.exports = function(server) {
           return;
         }
 
-        HyperlootUser.findById(wallet.userId,
-          {
-            include: 'userNickname'
-          }, function(err, user) {
-          if (err) {
-            sendError(res, err);
-          } else {
-            if (user == null || user.userNickname == null) {
-              sendError(res, 'User doesn\'t have nickname');
-              return;
+        HyperlootUser.findById(wallet.userId, {include: 'userNickname'},
+          function(err, user) {
+            if (err) {
+              sendError(res, err);
+            } else {
+              if (user == null || user.userNickname == null) {
+                sendError(res, 'User doesn\'t have nickname');
+                return;
+              }
+              res.send({result: {nickname: user.toJSON().userNickname.nickname}});
             }
-            res.send({result: {nickname: user.toJSON().userNickname.nickname}});
-          }
         });
       }
     });
@@ -91,40 +89,41 @@ module.exports = function(server) {
         return;
       }
 
-      HyperlootUser.findById(token.userId, {include: ['userNickname', 'wallets']}, function(err, user) {
-        if (err) {
-          sendError(res, err);
-        } else {
-          if (user == null) {
-            sendError(res, 'User doesn\'t exist');
-            return;
-          }
-
-          var userObj = user.toJSON();
-
-          var nickname = userObj.userNickname;
-          if (nickname == null) {
-            sendError(res, 'User doesn\'t have nickname');
-            return;
-          }
-
-          var wallet = userObj.wallets[0];
-          if (wallet == null) {
-            sendError(res, 'User doesn\'t have at least one wallet');
-            return;
-          }
-
-          res.send({
-            result: {
-              email: userObj.email,
-              userId: userObj.id,
-              accessToken: token.id,
-              nickname: nickname.nickname,
-              walletAddress: wallet.address
+      HyperlootUser.findById(token.userId, {include: ['userNickname', 'wallets']},
+        function(err, user) {
+          if (err) {
+            sendError(res, err);
+          } else {
+            if (user == null) {
+              sendError(res, 'User doesn\'t exist');
+              return;
             }
-          });
-        }
-      });
+
+            var userObj = user.toJSON();
+
+            var nickname = userObj.userNickname;
+            if (nickname == null) {
+              sendError(res, 'User doesn\'t have nickname');
+              return;
+            }
+
+            var wallet = userObj.wallets[0];
+            if (wallet == null) {
+              sendError(res, 'User doesn\'t have at least one wallet');
+              return;
+            }
+
+            res.send({
+              result: {
+                email: userObj.email,
+                userId: userObj.id,
+                accessToken: token.id,
+                nickname: nickname.nickname,
+                walletAddress: wallet.address
+              }
+            });
+          }
+        });
     });
   });
 
