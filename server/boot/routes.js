@@ -126,5 +126,45 @@ module.exports = function(server) {
     });
   });
 
+  router.post('/api/signup', function(req, res, next) {
+    var email = req.body.email;
+    var password = req.body.password;
+    var nickname = req.body.nickname;
+    var walletAddress = req.body.walletAddress;
+
+    var userObj = {
+      email: email,
+      password: password
+    };
+
+    var HyperlootUser = server.models.HyperlootUser;
+
+    HyperlootUser.create(userObj, function (err, user) {
+      if (err) {
+        sendError(res, err);
+        return;
+      }
+
+      console.log(user);
+
+      user.userNickname.create({nickname: nickname}, function(err, nickname) {
+        if (err) {
+          sendError(res, err);
+          return;
+        }
+
+        user.wallets.create({address: walletAddress}, function(err, wallet) {
+          if (err) {
+            sendError(res, err);
+            return
+          }
+
+          user.save();
+          res.send(user);
+        });
+      });
+    });
+  });
+
   server.use(router);
 };
