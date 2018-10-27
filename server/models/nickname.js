@@ -6,7 +6,8 @@ module.exports = function(Nickname) {
     var limit = 10;
     var page = (pageOffset != null) ? pageOffset : 0;
     var skip = page * limit;
-    Nickname.find({where: {nickname: name}, limit: limit, skip: skip}, function(err, nicknames) {
+    var pattern = new RegExp('.*'+name+'.*', "i");
+    Nickname.find({where: {nickname: {like: pattern}}, limit: limit, skip: skip}, function(err, nicknames) {
       cb(err, nicknames);
     });
   };
