@@ -45,12 +45,12 @@ module.exports = function(server) {
     });
   });
 
-  router.get('/api/findNicknameByWalletAddress', function (req, res, next) {
+  router.get('/api/findNicknameByWalletAddress', function(req, res, next) {
     var walletAddress = req.query['address'];
     var Wallet = server.models.Wallet;
     var HyperlootUser = server.models.HyperlootUser;
 
-    Wallet.findWallet(walletAddress, function (err, wallet) {
+    Wallet.findWallet(walletAddress, function(err, wallet) {
       if (err) {
         sendError(res, err);
       } else {
@@ -59,7 +59,10 @@ module.exports = function(server) {
           return;
         }
 
-        HyperlootUser.findById(wallet.userId, {include: 'userNickname'}, function(err, user) {
+        HyperlootUser.findById(wallet.userId,
+          {
+            include: 'userNickname'
+          }, function(err, user) {
           if (err) {
             sendError(res, err);
           } else {
@@ -71,7 +74,7 @@ module.exports = function(server) {
           }
         });
       }
-    })
+    });
   });
 
   router.post('/api/login', function(req, res, next) {
@@ -92,7 +95,6 @@ module.exports = function(server) {
         if (err) {
           sendError(res, err);
         } else {
-
           if (user == null) {
             sendError(res, 'User doesn\'t exist');
             return;
@@ -139,7 +141,7 @@ module.exports = function(server) {
 
     var HyperlootUser = server.models.HyperlootUser;
 
-    HyperlootUser.create(userObj, function (err, user) {
+    HyperlootUser.create(userObj, function(err, user) {
       if (err) {
         sendError(res, err);
         return;
@@ -156,7 +158,7 @@ module.exports = function(server) {
         user.wallets.create({address: walletAddress}, function(err, wallet) {
           if (err) {
             sendError(res, err);
-            return
+            return;
           }
 
           user.save();
