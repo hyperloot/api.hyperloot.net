@@ -5,37 +5,72 @@ module.exports = function(server) {
   var router = server.loopback.Router();
   router.get('/', server.loopback.status());
 
+  function sendError(response, error) {
+    response.status(500);
+    response.send({error: error});
+  }
+
   router.get('/api/canRegisterEmail', function(req, res, next) {
     var email = req.query['email'];
     var User = server.models.HyperlootUser;
     User.canRegisterEmail(email, function(err, result) {
       if (err) {
-        res.status(500);
-        res.send({error: err});
+        sendError(res, err);
       } else {
         res.send({result: {email: email, result: result}});
       }
     });
   });
 
-  router.get('/api/nicknameSearchSuggestions', function (req, res, next) {
+  router.get('/api/nicknameSearchSuggestions', function(req, res, next) {
     var nickname = req.query['nickname'];
     var page = req.query['page'];
     var Nickname = server.models.Nickname;
 
-    Nickname.findByName(nickname, page, function (err, nicknames) {
+    Nickname.findByName(nickname, page, function(err, nicknames) {
       if (err) {
-        res.status(500);
-        res.send({error: err});
+        sendError(res, err);
       } else {
         var response = [];
         for (var i = 0; i < nicknames.length; i++) {
           var nickname = nicknames[i];
-          response += { nickname: nickname.nickname, identifier: nickname.identifier, walletAddress: nickname.walletAddress }
+          response += {
+            nickname: nickname.nickname,
+            identifier: nickname.identifier,
+            walletAddress: nickname.walletAddress
+          };
         }
         res.send({result: response});
       }
+    });
+  });
 
+  router.get('/api/findNicknameByWalletAddress', function (req, res, next) {
+    var walletAddress = req.query['address'];
+    var Wallet = server.models.Wallet;
+    var HyperlootUser = server.models.HyperlootUser;
+
+    Wallet.findWallet(walletAddress, function (err, wallet) {
+      if (err) {
+        sendError(res, err);
+      } else {
+        if (wallet == null || wallet.userId == null) {
+          sendError(res, 'There are no such users');
+          return;
+        }
+
+        HyperlootUser.findById(wallet.userId, {include: 'nickname'}, function(err, user) {
+          if (err) {
+            sendError(res, err);
+          } else {
+            if (user == null || user.nickname == null) {
+              sendError(res, 'User doesn\'t have nickname');
+              return;
+            }
+            res.send({result: {nickname: user.nickname.nickname}});
+          }
+        });
+      }
     })
   });
 
