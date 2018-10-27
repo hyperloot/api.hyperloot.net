@@ -59,19 +59,71 @@ module.exports = function(server) {
           return;
         }
 
-        HyperlootUser.findById(wallet.userId, {include: 'nickname'}, function(err, user) {
+        HyperlootUser.findById(wallet.userId, {include: 'userNickname'}, function(err, user) {
           if (err) {
             sendError(res, err);
           } else {
-            if (user == null || user.nickname == null) {
+            if (user == null || user.userNickname == null) {
               sendError(res, 'User doesn\'t have nickname');
               return;
             }
-            res.send({result: {nickname: user.nickname.nickname}});
+            res.send({result: {nickname: user.toJSON().userNickname.nickname}});
           }
         });
       }
     })
+  });
+
+  router.post('/api/login', function(req, res, next) {
+    var login = req.body.login;
+    var password = req.body.password;
+    var HyperlootUser = server.models.HyperlootUser;
+
+    HyperlootUser.login({
+      email: req.body.email,
+      password: req.body.password
+    }, function(err, token) {
+      if (err) {
+        sendError(res, err);
+        return;
+      }
+
+      HyperlootUser.findById(token.userId, {include: ['userNickname', 'wallets']}, function(err, user) {
+        if (err) {
+          sendError(res, err);
+        } else {
+
+          if (user == null) {
+            sendError(res, 'User doesn\'t exist');
+            return;
+          }
+
+          var userObj = user.toJSON();
+
+          var nickname = userObj.userNickname;
+          if (nickname == null) {
+            sendError(res, 'User doesn\'t have nickname');
+            return;
+          }
+
+          var wallet = userObj.wallets[0];
+          if (wallet == null) {
+            sendError(res, 'User doesn\'t have at least one wallet');
+            return;
+          }
+
+          res.send({
+            result: {
+              email: userObj.email,
+              userId: userObj.id,
+              accessToken: token.id,
+              nickname: nickname.nickname,
+              walletAddress: wallet.address
+            }
+          });
+        }
+      });
+    });
   });
 
   server.use(router);
