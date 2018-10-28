@@ -60,7 +60,7 @@ module.exports = function(server) {
         }
 
         HyperlootUser.findById(wallet.userId, {
-            include: 'userNickname'
+          include: 'userNickname'
         }, function(err, user) {
           if (err) {
             sendError(res, err);
