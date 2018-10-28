@@ -1,6 +1,7 @@
 {
   "extends": "loopback",
   "rules": {
-    "comma-dangle": "always"
+    "comma-dangle": "off",
+    "max-len": "warn"
   }
 }
