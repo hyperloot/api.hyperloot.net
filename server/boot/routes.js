@@ -59,19 +59,20 @@ module.exports = function(server) {
           return;
         }
 
-        HyperlootUser.findById(wallet.userId, {include: 'userNickname'},
-          function(err, user) {
-            if (err) {
-              sendError(res, err);
-            } else {
-              if (user == null || user.userNickname == null) {
-                sendError(res, 'User doesn\'t have nickname');
-                return;
-              }
-              var userJSON = user.toJSON();
-              var nickname = userJSON.userNickname;
-              res.send({result: {nickname: nickname.nickname}});
+        HyperlootUser.findById(wallet.userId, {
+            include: 'userNickname'
+        }, function(err, user) {
+          if (err) {
+            sendError(res, err);
+          } else {
+            if (user == null || user.userNickname == null) {
+              sendError(res, 'User doesn\'t have nickname');
+              return;
             }
+            var userJSON = user.toJSON();
+            var nickname = userJSON.userNickname;
+            res.send({result: {nickname: nickname.nickname}});
+          }
         });
       }
     });
