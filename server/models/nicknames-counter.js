@@ -2,15 +2,15 @@
 
 module.exports = function(Nicknamescounter) {
   Nicknamescounter.getIdentifier = function(nickname, db, callback) {
-    db.connector.collection("NicknamesCounter").findOneAndUpdate({
-        nickname: nickname
+    db.connector.collection('NicknamesCounter').findOneAndUpdate({
+      nickname: nickname
     }, {
-        $inc: {
-          count: 1
-        }
+      $inc: {
+        count: 1
+      }
     }, {
       upsert: true
-    }, function (err, nicknameCounter) {
+    }, function(err, nicknameCounter) {
       if (err) {
         callback(err, null);
       } else {
