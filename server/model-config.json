@@ -47,6 +47,10 @@
     "dataSource": "hlapi",
     "public": true
   },
+  "NicknamesCounter": {
+    "dataSource": "hlapi",
+    "public": true
+  },
   "Blockscout": {
     "dataSource": "blockscout",
     "public": false

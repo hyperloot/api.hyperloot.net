@@ -142,6 +142,8 @@ module.exports = function(server) {
     };
 
     var HyperlootUser = server.models.HyperlootUser;
+    var NicknamesCounter = server.models.NicknamesCounter;
+    var db = server.datasources.hlapi;
 
     HyperlootUser.create(userObj, function(err, user) {
       if (err) {
@@ -151,20 +153,26 @@ module.exports = function(server) {
 
       console.log(user);
 
-      user.userNickname.create({nickname: nickname}, function(err, nickname) {
+      NicknamesCounter.getIdentifier(nickname, db, function(err, identifier) {
         if (err) {
           sendError(res, err);
           return;
         }
-
-        user.wallets.create({address: walletAddress}, function(err, wallet) {
+        user.userNickname.create({nickname: nickname, identifier: identifier}, function(err, nickname) {
           if (err) {
             sendError(res, err);
             return;
           }
 
-          user.save();
-          res.send(user);
+          user.wallets.create({address: walletAddress}, function(err, wallet) {
+            if (err) {
+              sendError(res, err);
+              return;
+            }
+
+            user.save();
+            res.send(user);
+          });
         });
       });
     });
