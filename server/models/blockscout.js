@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = function(Blockscout) {
-
-  var Blockchain = {"Main": "mainnet", "Ropsten": "ropsten"};
+  var Blockchain = {'Main': 'mainnet', 'Ropsten': 'ropsten'};
   Object.freeze(Blockchain);
 
   function currentBlockchain() {
@@ -20,5 +19,4 @@ module.exports = function(Blockscout) {
       callback(err, result);
     });
   };
-
 };
