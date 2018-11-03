@@ -13,10 +13,38 @@ module.exports = function(Blockscout) {
     return Blockchain[networkName];
   }
 
+  function responseError(response) {
+    var status = response.status;
+    var message = response.message;
+
+    if (status == 0 && message != null) {
+      return message;
+    }
+
+    return null;
+  }
+
   Blockscout.getTokenList = function(address, callback) {
     console.log(currentBlockchain());
     Blockscout.tokenlist(currentBlockchain(), address, function(err, result) {
-      callback(err, result);
+      if (err) {
+        callback(err, null);
+        return;
+      }
+
+      if (result) {
+        var error = responseError(result);
+        if (error != null) {
+          callback(error, null);
+          return;
+        }
+
+        var data = result.result;
+        callback(null, data);
+
+      } else {
+        callback('No result', null);
+      }
     });
   };
 };
