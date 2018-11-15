@@ -41,6 +41,60 @@
             "address"
           ]
         }
+      },
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://blockscout.com/eth/{network}/api",
+          "query": {
+            "network": "{network}",
+            "module": "{module=account}",
+            "action": "{action=balance}",
+            "address": "{address}"
+          }
+        },
+        "functions": {
+          "balance": [
+            "network",
+            "address"
+          ]
+        }
+      },
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://blockscout.com/eth/{network}/api",
+          "query": {
+            "network": "{network}",
+            "module": "{module=account}",
+            "action": "{action=txlist}",
+            "address": "{address}"
+          }
+        },
+        "functions": {
+          "txlist": [
+            "network",
+            "address"
+          ]
+        }
+      },
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://blockscout.com/eth/{network}/api",
+          "query": {
+            "network": "{network}",
+            "module": "{module=account}",
+            "action": "{action=tokentx}",
+            "address": "{address}"
+          }
+        },
+        "functions": {
+          "tokentx": [
+            "network",
+            "address"
+          ]
+        }
       }
     ]
   }

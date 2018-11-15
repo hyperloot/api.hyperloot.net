@@ -200,5 +200,18 @@ module.exports = function(server) {
     });
   });
 
+  router.get('/blockscout/tokentx', function(req, res, next) {
+    var address = req.query['address'];
+    var blockscout = server.models.Blockscout;
+    blockscout.getTokenTransactions(address, function(err, list) {
+      if (err) {
+        sendError(res, err);
+        return;
+      }
+
+      sendResult(res, list);
+    });
+  });
+
   server.use(router);
 };

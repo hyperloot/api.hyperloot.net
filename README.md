@@ -34,3 +34,7 @@ This is an API for the wallet app (primarily) and the core for marketplace (in f
     * password
     * nickname
     * walletAddress
+
+## Configuration
+Process env variables:
+* BLOCKCHAIN - Blockchain type for running Blockscout. Options: { Main, Ropsten }

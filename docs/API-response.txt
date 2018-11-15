@@ -1,0 +1,41 @@
+/dashboard
+{
+	balance: {
+		value,
+		decimals
+	},
+	tokens: {
+		{
+			name,
+			symbol,
+			contractAddress,
+			type: erc20, erc721,
+			details: {
+				erc20: {
+					value,
+					decimals			
+				},
+				erc721: {
+					tokenId,
+					meta: {
+						image,
+						description,
+						attributes: [ // OpenSea
+							{
+			      				display_type,
+			      				trait_type,
+			      				value
+			    			}, 
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/transactions
+{
+		
+}

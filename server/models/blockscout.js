@@ -25,7 +25,6 @@ module.exports = function(Blockscout) {
   }
 
   Blockscout.getTokenList = function(address, callback) {
-    console.log(currentBlockchain());
     Blockscout.tokenlist(currentBlockchain(), address, function(err, result) {
       if (err) {
         callback(err, null);
@@ -47,4 +46,24 @@ module.exports = function(Blockscout) {
       }
     });
   };
+
+  Blockscout.getTokenTransactions = function(address, callback) {
+    Blockscout.tokentx(currentBlockchain(), address, function(err, result) {
+      if (err) {
+        callback(err, null);
+      }
+      if (result) {
+        var error = responseError(result);
+        if (error != null) {
+          callback(error, null);
+          return;
+        }
+
+        callback(null, result);
+
+      } else {
+        callback('No result', null);
+      }
+    });
+  }
 };
