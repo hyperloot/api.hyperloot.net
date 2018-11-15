@@ -40,7 +40,6 @@ module.exports = function(Blockscout) {
 
         var data = result.result;
         callback(null, data);
-
       } else {
         callback('No result', null);
       }
@@ -60,10 +59,9 @@ module.exports = function(Blockscout) {
         }
 
         callback(null, result);
-
       } else {
         callback('No result', null);
       }
     });
-  }
+  };
 };
