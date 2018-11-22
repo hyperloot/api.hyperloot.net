@@ -1,6 +1,4 @@
-/**
- * Created by valeryv on 11/21/18.
- */
+'use strict';
 
 module.exports = {
   hlapi: {
@@ -9,4 +7,4 @@ module.exports = {
     password: process.env.MONGODB_PASSWORD,
     url: process.env.MONGODB_URI,
   }
-}
+};
