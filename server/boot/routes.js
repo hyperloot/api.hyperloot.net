@@ -10,6 +10,12 @@ module.exports = function(server) {
     response.send({error: error});
   }
 
+  function sendResult(response, result) {
+    response.send({
+      result: result
+    });
+  }
+
   router.get('/api/canRegisterEmail', function(req, res, next) {
     var email = req.query['email'];
     var User = server.models.HyperlootUser;
@@ -17,7 +23,10 @@ module.exports = function(server) {
       if (err) {
         sendError(res, err);
       } else {
-        res.send({result: {email: email, result: result}});
+        sendResult(res, {
+          email: email,
+          isAvailable: result
+        });
       }
     });
   });
@@ -40,7 +49,7 @@ module.exports = function(server) {
             walletAddress: nickname.walletAddress
           });
         }
-        res.send({result: response});
+        sendResult(res, response);
       }
     });
   });
@@ -71,7 +80,9 @@ module.exports = function(server) {
             }
             var userJSON = user.toJSON();
             var nickname = userJSON.userNickname;
-            res.send({result: {nickname: nickname.nickname}});
+            sendResult(res, {
+              nickname: nickname.nickname
+            });
           }
         });
       }
@@ -116,14 +127,12 @@ module.exports = function(server) {
             return;
           }
 
-          res.send({
-            result: {
-              email: userObj.email,
-              userId: userObj.id,
-              accessToken: token.id,
-              nickname: nickname.nickname,
-              walletAddress: wallet.address
-            }
+          sendResult(res, {
+            email: userObj.email,
+            userId: userObj.id,
+            accessToken: token.id,
+            nickname: nickname.nickname,
+            walletAddress: wallet.address
           });
         }
       });
@@ -171,10 +180,36 @@ module.exports = function(server) {
             }
 
             user.save();
-            res.send(user);
+            sendResult(res, user);
           });
         });
       });
+    });
+  });
+
+  router.get('/blockscout/tokenList', function(req, res, next) {
+    var address = req.query['address'];
+    var blockscout = server.models.Blockscout;
+    blockscout.getTokenList(address, function(err, list) {
+      if (err) {
+        sendError(res, err);
+        return;
+      }
+
+      sendResult(res, list);
+    });
+  });
+
+  router.get('/blockscout/tokentx', function(req, res, next) {
+    var address = req.query['address'];
+    var blockscout = server.models.Blockscout;
+    blockscout.getTokenTransactions(address, function(err, list) {
+      if (err) {
+        sendError(res, err);
+        return;
+      }
+
+      sendResult(res, list);
     });
   });
 
