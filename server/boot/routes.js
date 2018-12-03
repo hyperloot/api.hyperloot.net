@@ -189,8 +189,7 @@ module.exports = function(server) {
       });
     });
   });
-
-
+  
   router.get('/blockscout/tokenList', function(req, res, next) {
     var address = req.query['address'];
     var blockscout = server.models.Blockscout;
