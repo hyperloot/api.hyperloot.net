@@ -4,13 +4,13 @@
     "connector": "memory"
   },
   "hlapi": {
-    "host": "ds241493.mlab.com",
-    "port": 41493,
+    "host": "",
+    "port": 0,
     "url": "",
-    "database": "db-hyperloot-test",
-    "password": "hyperl22t",
+    "database": "",
+    "password": "",
     "name": "hlapi",
-    "user": "hyperloot",
+    "user": "",
     "connector": "mongodb"
   },
   "blockscout": {
