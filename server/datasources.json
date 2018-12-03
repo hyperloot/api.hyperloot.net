@@ -4,13 +4,7 @@
     "connector": "memory"
   },
   "hlapi": {
-    "host": "",
-    "port": 0,
-    "url": "",
-    "database": "",
-    "password": "",
     "name": "hlapi",
-    "user": "",
     "connector": "mongodb"
   },
   "blockscout": {
