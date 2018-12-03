@@ -131,7 +131,10 @@ module.exports = function(server) {
             email: userObj.email,
             userId: userObj.id,
             accessToken: token.id,
-            nickname: nickname.nickname,
+            nickname: {
+              nickname: nickname.nickname,
+              identifier: nickname.identifier
+            },
             walletAddress: wallet.address
           });
         }
@@ -186,6 +189,7 @@ module.exports = function(server) {
       });
     });
   });
+
 
   router.get('/blockscout/tokenList', function(req, res, next) {
     var address = req.query['address'];
