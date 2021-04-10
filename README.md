@@ -44,11 +44,11 @@ Process ENV variables:
 * NODE_ENV - Type of environment { production }
 
 ## Setup environment (Heroku + MongoDB Atlas)
-1. Create an account on Heroku
-1.1 Choose GitHub as a source and select api.hyperloot.net repository
-2. Create an account on MongoDB Atlas
-2.1 Create a database user with password, these credentials will be used for MONGODB_USER and MONGODB_PASSWORD
-2.2 Create a new database, check the connection to the new database
-3. Setup environment variables on Heroku:
-3.1 MONGODB_USER (e.g. dbuser), MONGODB_PASSWORD (e.g. mypassword123) and MONGODB_URI (e.g. mongodb+srv://cluster.host/<databasename>) are required
-3.2. BLOCKCHAIN - choose between mainnet and testnet.
+* Create an account on Heroku
+  * Choose GitHub as a source and select api.hyperloot.net repository
+* Create an account on MongoDB Atlas
+  * Create a database user with password, these credentials will be used for MONGODB_USER and MONGODB_PASSWORD
+  * Create a new database, check the connection to the new database
+* Setup environment variables on Heroku:
+  * MONGODB_USER (e.g. dbuser), MONGODB_PASSWORD (e.g. mypassword123) and MONGODB_URI (e.g. mongodb+srv://cluster.host/<databasename>) are required
+  * BLOCKCHAIN - choose between mainnet and testnet.
