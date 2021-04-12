@@ -5,5 +5,6 @@ module.exports = {
     connector: 'postgresql',
     name: 'hlapi',
     url: process.env.DATABASE_URL,
+    ssl: true
   }
 };
