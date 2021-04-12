@@ -5,7 +5,7 @@
   },
   "hlapi": {
     "name": "hlapi",
-    "connector": "mongodb"
+    "connector": "postgresql"
   },
   "blockscout": {
     "name": "blockscout",
