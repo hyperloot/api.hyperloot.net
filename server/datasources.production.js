@@ -2,10 +2,9 @@
 
 module.exports = {
   hlapi: {
-    connector: 'mongodb',
+    connector: 'postgresql',
     name: 'hlapi',
-    user: process.env.MONGODB_USER,
-    password: process.env.MONGODB_PASSWORD,
-    url: process.env.MONGODB_URI,
+    url: process.env.DATABASE_URL,
+    ssl: true
   }
 };
